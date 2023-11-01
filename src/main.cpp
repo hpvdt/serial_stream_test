@@ -1,18 +1,22 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
-
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  // Status LED
+  pinMode(PC13, OUTPUT);
+  digitalWrite(PC13, HIGH); // Default to unilluminated
+
+  Serial.begin(115200);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
+  
+  Serial.println("Hello");
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  // Flash LED for status update
+  const unsigned long flashPeriod   =  100; 
+  const unsigned long overallPeriod = 1000; // Overall period between messages
+  digitalWrite(PC13, LOW); // LED is lit when LOW
+  delay(flashPeriod);
+  digitalWrite(PC13, HIGH);
+  delay(overallPeriod - flashPeriod);
 }
