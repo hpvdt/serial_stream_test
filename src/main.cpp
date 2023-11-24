@@ -8,6 +8,8 @@ void setup() {
   digitalWrite(PC13, HIGH); // Default to unilluminated
 
   Serial.begin(115200);
+  
+  while (!Serial) delay(100); // Wait for USB to initialize communications
 }
 
 void loop() {
@@ -26,8 +28,8 @@ void loop() {
   to hold all these function calls with a bunch of parameters passed in
   for all the system characteristics.
   */
-  floatByBytes(32.000);
-  floatByBytes(23.151);
+  floatByBytes(32.000); // 32 is 0x4200_0000 in hex, if the byte order is reversed (0x0000_0042) then it will be interpreted as 9.24856986454e-44
+  floatByBytes(23.151); // 0x41b9353f, if reversed then 0.709858000278
 
   floatByBytes((millis()/1000) % 360);
 
