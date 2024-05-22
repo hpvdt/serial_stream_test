@@ -1,11 +1,17 @@
 #include <Arduino.h>
 
+#ifdef ARDUINO_ARCH_STM32
+const int LED = PC13;
+#else
+const int LED = LED_BUILTIN;
+#endif
+
 void floatByBytes(float data);
 
 void setup() {
   // Status LED
-  pinMode(PC13, OUTPUT);
-  digitalWrite(PC13, HIGH); // Default to unilluminated
+  pinMode(LED, OUTPUT);
+  digitalWrite(LED, HIGH); // Default to unilluminated
 
   Serial.begin(115200);
   
@@ -50,9 +56,9 @@ void loop() {
   // Flash LED for status update
   const unsigned long flashPeriod   =  100; 
   const unsigned long overallPeriod = 1000; // Overall period between messages
-  digitalWrite(PC13, LOW); // LED is lit when LOW
+  digitalWrite(LED, LOW); // LED is lit when LOW
   delay(flashPeriod);
-  digitalWrite(PC13, HIGH);
+  digitalWrite(LED, HIGH);
   delay(overallPeriod - flashPeriod);
 }
 
